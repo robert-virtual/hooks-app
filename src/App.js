@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { About } from "./components/about";
+import { Hello } from "./components/hello";
+import Publish from "./components/publish";
+import userContext from "./userContext";
 
 function App() {
+  const [user, setUser] = useState({ name: "robert", age: 21 });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <userContext.Provider value={{ user, setUser }}>
+      <div className="App">
+        <Publish />
+        <hr />
+        <h1>hola mundo</h1>
+        <input
+          type="text"
+          value={user.name}
+          onChange={({ target }) => setUser({ ...user, name: target.value })}
+        />
+        <Hello />
+        <About />
+      </div>
+    </userContext.Provider>
   );
 }
 
